@@ -1,10 +1,10 @@
 import apiClient from "../utils/ApiClient";
-const url="/fournisseur"
+const url="/Chauffeur"
 
 // Fonction pour récupérer tous les utilisateurs
-export const getFournisseurs = () => apiClient.get(`${url}s`);
+export const getChauffeurs = () => apiClient.get(`${url}s`);
 
-export const findFournisseur =async  (id) =>{
+export const findChauffeur =async  (id) =>{
     try {
         const response=await apiClient.get(`${url}/${id}`)
         return response.data
@@ -13,7 +13,7 @@ export const findFournisseur =async  (id) =>{
     }
 }
 // Fonction pour créer un utilisateur
-export const createFournisseur= async (data,config) => {
+export const createChauffeur= async (data,config) => {
     try {
         const response=await apiClient.post(`${url}/create`, data,config);
         return response;
@@ -22,7 +22,7 @@ export const createFournisseur= async (data,config) => {
     }
 }
 
-export const getFournisseurById=async (id)=>{
+export const getChauffeurById=async (id)=>{
     try {
         const response=await apiClient.get(`${url}/${id}`)
         return response.data
@@ -34,10 +34,10 @@ export const getFournisseurById=async (id)=>{
 }
 
 // Fonction pour mettre à jour un utilisateur
-export const updateFournisseur  = (id, data,config) => apiClient.put(`${url}/${id}`,data,config);
+export const updateChauffeur  = (id, data,config) => apiClient.put(`${url}/${id}`,data,config);
 
 // Fonction pour supprimer un utilisateur
-export const deleteFournisseur  = (id) => apiClient.delete(`${url}/${id}`);
+export const deleteChauffeur  = (id) => apiClient.delete(`${url}/${id}`);
 
 
 
