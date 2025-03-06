@@ -1,10 +1,10 @@
 import apiClient from "../utils/ApiClient";
-const url="/Vente"
+const url="/fournisseur"
 
 // Fonction pour récupérer tous les utilisateurs
-export const getVentes = () => apiClient.get(`${url}s`);
+export const getFournisseurs = () => apiClient.get(`${url}s`);
 
-export const findVente =async  (id) =>{
+export const findFournisseur =async  (id) =>{
     try {
         const response=await apiClient.get(`${url}/${id}`)
         return response.data
@@ -13,7 +13,7 @@ export const findVente =async  (id) =>{
     }
 }
 // Fonction pour créer un utilisateur
-export const createVente= async (data,config) => {
+export const createFournisseur= async (data,config) => {
     try {
         const response=await apiClient.post(`${url}/create`, data,config);
         return response;
@@ -22,7 +22,7 @@ export const createVente= async (data,config) => {
     }
 }
 
-export const getVenteById=async (id)=>{
+export const getFournisseurById=async (id)=>{
     try {
         const response=await apiClient.get(`${url}/${id}`)
         return response.data
@@ -34,10 +34,10 @@ export const getVenteById=async (id)=>{
 }
 
 // Fonction pour mettre à jour un utilisateur
-export const updateVente  = (id, data,config) => apiClient.put(`${url}/${id}`,data,config);
+export const updateFournisseur  = (id, data,config) => apiClient.put(`${url}/${id}`,data,config);
 
 // Fonction pour supprimer un utilisateur
-export const deleteVente  = (id) => apiClient.delete(`${url}/${id}`);
+export const deleteFournisseur  = (id) => apiClient.delete(`${url}/${id}`);
 
 
 
