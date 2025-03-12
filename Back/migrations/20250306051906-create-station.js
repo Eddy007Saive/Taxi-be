@@ -18,8 +18,26 @@ module.exports = {
       adresse: {
         type: Sequelize.STRING
       },
-      telephone: {
+      contact: {
         type: Sequelize.STRING
+      },
+      horaires_ouverture: {
+        type: Sequelize.STRING
+      },
+      code: {
+        type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.TEXT
+      },
+      latitude: {
+        type: Sequelize.FLOAT
+      },
+      longitude: {
+        type: Sequelize.FLOAT
+      },
+      est_active: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
