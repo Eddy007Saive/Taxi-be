@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Chauffeur.init({
+    photos:DataTypes.STRING,
     nom: DataTypes.STRING,
     prenom: DataTypes.STRING,
     telephone: DataTypes.STRING,

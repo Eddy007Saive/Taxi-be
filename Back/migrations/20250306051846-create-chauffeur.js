@@ -12,6 +12,9 @@ module.exports = {
       nom: {
         type: Sequelize.STRING
       },
+      photos: {
+        type: Sequelize.STRING
+      },
       prenom: {
         type: Sequelize.STRING
       },
