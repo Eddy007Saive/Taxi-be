@@ -10,15 +10,34 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Station.hasMany(models.Trajet, { foreignKey: 'station_depart_id', as: 'departTrajets' });
-      Station.hasMany(models.Trajet, { foreignKey: 'station_arrivee_id', as: 'arriveeTrajets' });
+      // Associations avec Trajet
+      Station.hasMany(models.Trajet, { foreignKey: 'station_depart_id', as: 'trajetsDepart' });
+      Station.hasMany(models.Trajet, { foreignKey: 'station_arrivee_id', as: 'trajetsArrivee' });
     }
   }
   Station.init({
-    nom: DataTypes.STRING,
+    nom: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     ville: DataTypes.STRING,
     adresse: DataTypes.STRING,
-    telephone: DataTypes.STRING
+    latitude: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    longitude: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    est_active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    code: DataTypes.STRING,
+    description: DataTypes.TEXT,
+    horaires_ouverture: DataTypes.STRING,
+    contact: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Station',
