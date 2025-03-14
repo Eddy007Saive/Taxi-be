@@ -15,7 +15,6 @@ import ViewVehicule from "../pages/Vehicule/View"
 function AppRoutes() {
   return (
     <Router>
-
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />}>

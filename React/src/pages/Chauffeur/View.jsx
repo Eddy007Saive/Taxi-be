@@ -25,14 +25,14 @@ function View() {
                 <h1 className="text-2xl font-semibold text-blue-800">Liste des chauffeurs</h1>
             </div>
             <div className="flex justify-between items-center mb-4">
-                <Link to={"new"} className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600">
+                <Link to={"new"} className="bg-blue-400 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600">
                     Créer Nouveau
                 </Link>
             </div>
 
             <div className="overflow-x-auto">
                 <table className="w-full border-collapse rounded-lg shadow-lg bg-white">
-                    <thead className="bg-blue-600 text-white">
+                    <thead className="bg-blue-200 text-blue-600">
                         <tr>
                             <th className="px-4 py-3">Nom</th>
                             <th className="px-4 py-3">Prénom</th>
@@ -45,15 +45,15 @@ function View() {
                         {chauffeurs.length > 0 ? (
                             chauffeurs.map((chauffeur, index) => (
                                 <tr key={chauffeur.id} className={`${index % 2 === 0 ? "bg-gray-100" : "bg-white"} border-b`}>
-                                    <td className="px-4 py-3">{chauffeur.nom}</td>
-                                    <td className="px-4 py-3">{chauffeur.prenom}</td>
-                                    <td className="px-4 py-3">{chauffeur.telephone}</td>
-                                    <td className="px-4 py-3">{chauffeur.email}</td>
-                                    <td className="px-4 py-3">
-                                        <button className="bg-blue-300 text-dark px-3 py-1 rounded-lg text-sm mr-2 hover:bg-green-600">
+                                    <td className="px-4 py-3 text-sm">{chauffeur.nom}</td>
+                                    <td className="px-4 py-3 text-sm">{chauffeur.prenom}</td>
+                                    <td className="px-4 py-3 text-sm">{chauffeur.telephone}</td>
+                                    <td className="px-4 py-3 text-sm">{chauffeur.email}</td>
+                                    <td className="px-4 py-3 text-sm">
+                                        <button className="bg-blue-300 text-sm text-dark px-3 py-1 rounded-lg text-sm mr-2 hover:bg-green-600">
                                             Modifier
                                         </button>
-                                        <button className="bg-pink-300 text-dark px-3 py-1 rounded-lg text-sm hover:bg-red-600">
+                                        <button className="bg-pink-300 text-sm text-dark px-3 py-1 rounded-lg text-sm hover:bg-red-600">
                                             Supprimer
                                         </button>
                                     </td>
