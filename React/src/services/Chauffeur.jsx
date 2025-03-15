@@ -6,7 +6,7 @@ export const getChauffeurs = () => apiClient.get(`${url}s`);
 
 export const findChauffeur =async  (id) =>{
     try {
-        const response=await apiClient.get(`${url}/${id}`)
+        const response = await apiClient.get(`${url}/${id}`)
         return response.data
     } catch (error) {
         console.log(error);
@@ -15,7 +15,7 @@ export const findChauffeur =async  (id) =>{
 // Fonction pour créer un utilisateur
 export const createChauffeur= async (data,config) => {
     try {
-        const response=await apiClient.post(`${url}/create`, data,config);
+        const response = await apiClient.post(`${url}/create`, data,config);
         return response;
     } catch (error) {
         console.log(error);

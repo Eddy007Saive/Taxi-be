@@ -7,6 +7,8 @@ const cors = require('cors');
 
 const stationRouter=require("./routes/stations")
 const trajetRouter=require("./routes/trajets")
+const chauffeurRouter=require("./routes/chauffeurs")
+const vehiculeRouter = require("./routes/vehicule")
 const userRouter=require("./routes/users")
 
 
@@ -32,6 +34,8 @@ app.use(cookieParser());
 // Charger les routes sous le préfixe `/api`
 app.use('/api', stationRouter);
 app.use('/api', trajetRouter);
+app.use('/api', chauffeurRouter);
+app.use('/api', vehiculeRouter);
 app.use('/api', userRouter);
 
 
