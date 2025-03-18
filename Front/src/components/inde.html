@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Itinéraire routier à Madagascar</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+  <style>
+    #map { 
+      height: 600px; 
+      width: 100%;
+    }
+    body { 
+      margin: 0; 
+      padding: 20px; 
+      font-family: Arial, sans-serif;
+    }
+    .info-panel {
+      padding: 10px;
+      background: white;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="info-panel">
+    <h2>Itinéraire routier: Antananarivo → Toamasina</h2>
+    <div id="route-info">Chargement de l'itinéraire qui suit les routes...</div>
+  </div>
+  
+  <div id="map"></div>
+  
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+  <script>
+    // Coordonnées d'Antananarivo (Tana)
+    const tanaCoords = [-18.8792, 47.5079];
+    
+    // Coordonnées de Toamasina (Tamatave)
+    const toamasinaCoords = [-23.3516
+    , 43.6854];
+    
+    // Initialiser la carte centrée entre les deux points
+    const centerLat = (tanaCoords[0] + toamasinaCoords[0]) / 2;
+    const centerLng = (tanaCoords[1] + toamasinaCoords[1]) / 2;
+    const map = L.map('map').setView([centerLat, centerLng], 8);
+    
+    // Ajouter la couche de carte OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    // Ajouter des marqueurs pour les points de départ et d'arrivée
+    const tanaMarker = L.marker(tanaCoords).addTo(map)
+      .bindPopup('<strong>Antananarivo</strong><br>Point de départ').openPopup();
+    
+    const toamasinaMarker = L.marker(toamasinaCoords).addTo(map)
+      .bindPopup('<strong>Toamasina</strong><br>Destination');
+    
+    // Utiliser Leaflet Routing Machine pour calculer et afficher un itinéraire qui suit les routes
+    const routingControl = L.Routing.control({
+      waypoints: [
+        L.latLng(tanaCoords[0], tanaCoords[1]),
+        L.latLng(toamasinaCoords[0], toamasinaCoords[1])
+      ],
+      routeWhileDragging: true,
+      router: L.Routing.osrmv1({
+        serviceUrl: 'https://router.project-osrm.org/route/v1',
+        profile: 'driving'
+      }),
+      lineOptions: {
+        styles: [{color: 'red', opacity: 1, weight: 5}]
+      },
+      show: false, // Ne pas afficher le panneau d'instructions
+      addWaypoints: false, // Désactiver l'ajout de points intermédiaires
+      draggableWaypoints: false, // Désactiver le déplacement des points
+      createMarker: function() { return null; } // Ne pas créer de marqueurs supplémentaires
+    }).addTo(map);
+    
+    // Mettre à jour les informations d'itinéraire lorsque l'itinéraire est calculé
+    routingControl.on('routesfound', function(e) {
+      const routes = e.routes;
+      const summary = routes[0].summary;
+      
+      // Convertir les secondes en heures et minutes
+      const hours = Math.floor(summary.totalTime / 3600);
+      const minutes = Math.floor((summary.totalTime % 3600) / 60);
+      
+      document.getElementById('route-info').innerHTML = `
+        <p><strong>Distance:</strong> ${(summary.totalDistance / 1000).toFixed(2)} km</p>
+        <p><strong>Durée estimée:</strong> ${hours} h ${minutes} min</p>
+        <p><strong>Route principale:</strong> RN2 (Route Nationale 2)</p>
+        <p>Cet itinéraire suit les routes principales entre Antananarivo et Toamasina.</p>
+      `;
+    });
+    
+    // En cas d'erreur de routage, afficher un message alternatif
+    routingControl.on('routingerror', function(e) {
+      document.getElementById('route-info').innerHTML = `
+        <p>Impossible de calculer l'itinéraire précis en suivant les routes.</p>
+        <p>La RN2 (Route Nationale 2) relie Antananarivo à Toamasina sur environ 350 km.</p>
+        <p>Temps de trajet typique: 6-8 heures en voiture.</p>
+      `;
+      
+      // Afficher une ligne directe en cas d'erreur
+      L.polyline([tanaCoords, toamasinaCoords], {
+        color: 'red',
+        weight: 3,
+        opacity: 0.7
+      }).addTo(map);
+    });
+    
+  </script>
+</body>
+</html>
