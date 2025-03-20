@@ -2,7 +2,7 @@ import apiClient from "../utils/ApiClient";
 const url="/Station"
 
 // Fonction pour récupérer tous les utilisateurs
-export const getStations = () => apiClient.get(`${url}s`);
+export const getStations = async () => await apiClient.get(`${url}s`);
 
 export const findStation =async  (id) =>{
     try {

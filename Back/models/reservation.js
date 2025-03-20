@@ -10,8 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Reservation.belongsTo(models.Voyage, { foreignKey: 'voyage_id' });
       Reservation.hasOne(models.Paiement, { foreignKey: 'reservation_id' });
+      // Cette méthode crée automatiquement la table intermédiaire
+      Reservation.belongsToMany(models.Voyage, { through: models.ReservationVoyage  });
       
     }
   }

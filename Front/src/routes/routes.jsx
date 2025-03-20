@@ -10,59 +10,44 @@ import {
   MapIcon,
   GlobeAltIcon
 } from "@heroicons/react/24/solid";
-import { Home} from "@/pages/dashboard";
-import { New as NewTrajet} from "@/pages/trajet";
-import { Create as NewStation} from "@/pages/station";
-
-import { Create as NewChauufeur} from "@/pages/chauffeur";
-
-
-import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
 };
 
-export const routes = [
+export const routeS = [
   {
     layout: "dashboard",
     pages: [
       {
         icon: <HomeIcon {...icon} />,
         name: "Acceuil",
-        path: "/home",
-        element: <Home />,
+        path: "/home", // Chemin complet avec /dashboard
       },
       {
         icon: <TruckIcon {...icon} />,
         name: "Vehicule",
-        path: "/home",
-        element: <Home />,
+        path: "/vehicule", // Chemin complet avec /dashboard
       },
       {
         icon: <UserCircleIcon {...icon} />,
         name: "Chauffeur",
-        path: "/NewChauufeur",
-        element: <NewChauufeur />,
+        path: "/chauffeur", // Chemin complet avec /dashboard
       },
       {
         icon: <MapPinIcon {...icon} />,
         name: "Station",
-        path: "/NewStation",
-        element: <NewStation />,
+        path: "/station", // Chemin complet avec /dashboard
       },
       {
         icon: <MapIcon {...icon} />,
         name: "Trajets",
-        path: "/notifications",
-        element: <NewTrajet />,
+        path: "/trajets", // Chemin complet avec /dashboard
       },
-
       {
         icon: <GlobeAltIcon {...icon} />,
         name: "Voyage",
-        path: "/voyage",
-        element: <NewTrajet />,
+        path: "/voyage", // Chemin complet avec /dashboard
       },
     ],
   },
@@ -73,17 +58,15 @@ export const routes = [
       {
         icon: <ServerStackIcon {...icon} />,
         name: "sign in",
-        path: "/sign-in",
-        element: <SignIn />,
+        path: "/auth/sign-in", // Chemin complet avec /auth
       },
       {
         icon: <RectangleStackIcon {...icon} />,
         name: "sign up",
-        path: "/sign-up",
-        element: <SignUp />,
+        path: "/auth/sign-up", // Chemin complet avec /auth
       },
     ],
   },
 ];
 
-export default routes;
+export default routeS;
