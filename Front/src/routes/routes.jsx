@@ -42,7 +42,7 @@ export const routeS = [
       {
         icon: <MapIcon {...icon} />,
         name: "Trajets",
-        path: "/trajets", // Chemin complet avec /dashboard
+        path: "/trajet", // Chemin complet avec /dashboard
       },
       {
         icon: <GlobeAltIcon {...icon} />,
