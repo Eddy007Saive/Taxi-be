@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,14 +8,25 @@ import { createChauffeur } from "../../services/Chauffeur";
 import chauffeurSchema from "../../validations/ChauffeurSchema";
 
 export function Create() {
+  const [image,setImage]=useState(null);
+
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(chauffeurSchema),
   });
+
   const navigate = useNavigate()
+
   const addChauffeur = async (data) => {
     try {
-      await createChauffeur(data);
+      let formaData=new FormData();
+      for (const key in data) {
+       formaData.append(key,data[key])
+      }
+      formaData.append("image",image)
+
+      await createChauffeur(formaData);
+
       reset();
       navigate('/dashboard/chauffeur')
       toast.success("Le chauffeur a été enregistré avec succès !");
@@ -25,12 +36,40 @@ export function Create() {
     }
   };
 
+  const handleImageChange=(e)=>{
+    const file=e.target.files[0]
+    setImage(file)
+  }
+
   return (
-    <section className="flex justify-center items-center w-full h-screen">
-      <div className="bg-white dark:bg-gray-900 shadow-2xl p-6 w-2/3">
+    <section className="flex justify-center items-center w-full min-h-screen bg-gray-100">
+      <div className="bg-white rounded-lg shadow-2xl p-6 w-full max-w-4xl m-4">
         <h1 className="text-3xl font-semibold text-blue-800 mb-6 text-center">Ajout de chauffeur</h1>
 
         <form onSubmit={handleSubmit(addChauffeur)} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Section photo */}
+          <div className="md:col-span-2 flex flex-col md:flex-row items-center gap-6">
+            <div className="w-full md:w-1/3 flex justify-center">
+              <div className="w-48 h-48 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-gray-50">
+              {image && (
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt="Photo du chauffeur" className="text-gray-400 text-center p-4"
+                      />
+                    )}
+              </div>
+            </div>
+            
+            <div className="w-full md:w-2/3">
+              <label className="block text-gray-700 font-medium mb-1">Photo</label>
+              <input
+                onChange={handleImageChange}
+                type="file"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+            </div>
+          </div>
+
           {/* Nom */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">Nom</label>
@@ -102,17 +141,16 @@ export function Create() {
             {errors.date_embauche && <p className="text-red-500 text-sm mt-1">{errors.date_embauche.message}</p>}
           </div>
 
-          {/* Bouton d'envoi (pleine largeur) */}
-          <div className="col-span-1 md:col-span-2 text-center flex justify-center gap-2">
+          {/* Boutons */}
+          <div className="col-span-1 md:col-span-2 flex flex-col sm:flex-row justify-center gap-4 mt-4">
             <Link to={"/dashboard/chauffeur"}>
-              <button className="w-full md:w-auto px-6 py-3 bg-blue-300 hover:bg-blue-600 text-dark font-semibold rounded-lg shadow-md transition duration-300">
+              <button className="w-full sm:w-auto px-6 py-3 text-xs py-3 rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] w-full flex items-center gap-4 px-4 capitalize">
                 Retour à la liste
               </button>
             </Link>
-            <button type="submit" className="w-full md:w-auto px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition duration-300">
+            <button type="submit" className="w-full sm:w-auto px-6 py-3 text-xs  rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] w-full flex items-center gap-4 px-4 capitalize">
               Ajouter
             </button>
-
           </div>
         </form>
 

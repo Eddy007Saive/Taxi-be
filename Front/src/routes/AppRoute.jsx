@@ -3,7 +3,9 @@ import { Dashboard, Auth } from "@/layouts";
 import { Home } from "@/pages/dashboard";
 import { New as NewTrajet,liste as Trajet} from "@/pages/trajet";
 import { liste as Station,Create as NewStation } from "@/pages/station";
-import { Create as NewChauufeur } from "@/pages/chauffeur";
+import { liste as Chauffeur,Create as NewChauffeur } from "@/pages/chauffeur";
+import { Create as NewVehicule, liste as Vehicule } from "@/pages/vehicule";
+
 import { SignIn, SignUp } from "@/pages/auth";
 
 export function AppRoute() {
@@ -12,12 +14,14 @@ export function AppRoute() {
       {/* Routes Dashboard avec Outlet */}
       <Route path="/dashboard" element={<Dashboard />}>
         <Route path="home" element={<Home />} />
-        <Route path="vehicule" element={<Home />} /> 
-        <Route path="chauffeur" element={<NewChauufeur />} />
+        <Route path="chauffeur" element={<Chauffeur />} />
+        <Route path="chauffeur/nouveau" element={<NewChauffeur />} />
         <Route path="station" element={<Station />} />
         <Route path="station/nouveau" element={<NewStation />} />
         <Route path="trajet" element={<Trajet />} />
         <Route path="trajet/nouveau" element={<NewTrajet />} />
+        <Route path="vehicule" element={<Vehicule />} />
+        <Route path="vehicule/nouveau" element={<NewVehicule />} />
 
         <Route path="voyage" element={<NewTrajet />} />
 
